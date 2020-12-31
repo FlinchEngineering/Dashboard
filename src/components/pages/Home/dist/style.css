@@ -1,0 +1,80 @@
+.home-container {
+  display: flex;
+}
+.home-container .content {
+  display: flex;
+  flex: 8;
+  padding-top: 50px;
+  flex-direction: column;
+  margin-bottom: 100px;
+}
+.home-container .content .inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.home-container .content .inputs input {
+  width: 100%;
+}
+.home-container .content .inputs textarea {
+  min-width: 350px;
+}
+.home-container .content .inputs .extra {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  min-width: 250px;
+  justify-content: center;
+}
+.home-container .content .inputs .extra .add {
+  font-size: 50px;
+  height: 50px;
+  width: 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.home-container .content .inputs .options {
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: none;
+  background-color: #fff;
+}
+.home-container .content .inputs .sample {
+  display: none;
+}
+.home-container .content .inputs .samples {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  justify-content: space-evenly;
+  min-width: 350px;
+  padding-top: 20px;
+}
+.home-container .content .inputs .samples .video {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 100px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  word-break: break-all;
+  position: relative;
+}
+.home-container .content .inputs .samples .video .close {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: -10px;
+}
+.home-container .content .inputs .samples .vidIcon {
+  height: 50px;
+  width: 50px;
+  color: #00A3FF;
+  fill: #00A3FF;
+  stroke: #00A3FF;
+}
+.home-container .content h1 {
+  text-align: center;
+}

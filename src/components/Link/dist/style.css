@@ -1,0 +1,8 @@
+.link {
+  color: #00A3FF;
+  cursor: pointer;
+  font-weight: bold;
+}
+.link:active {
+  outline: auto;
+}

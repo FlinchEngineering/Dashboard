@@ -1,0 +1,83 @@
+@import '../../../variables';
+
+.home-container {
+  display: flex;
+  .content {
+    display: flex;
+    flex: 8;
+    padding-top: 50px;
+    flex-direction: column;
+    margin-bottom: 100px;
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      input {
+        width: 100%;
+      }
+      textarea {
+        min-width: 350px;
+      }
+      .extra {
+        // height: 30px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        min-width: 250px;
+        justify-content: center;
+        .add {
+          font-size: 50px;
+          height: 50px;
+          width: 50px;
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .options {
+        height: 30px;
+        border: 1px solid $grey;
+        box-shadow: none;
+        background-color: $white;
+      }
+      .sample {
+        display: none;
+      }
+      .samples {
+        display: flex;
+        flex-wrap: wrap;
+        border-top: 1px solid $light;
+        justify-content: space-evenly;
+        min-width: 350px;
+        padding-top: 20px;
+        .video {
+          margin-right: 10px;
+          margin-left: 10px;
+          width: 100px;
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          word-break: break-all;
+          position: relative;
+          .close {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: -10px;
+          }
+        }
+        .vidIcon {
+          height: 50px;
+          width: 50px;
+          color: $primary-color;
+          fill: $primary-color;
+          stroke: $primary-color;
+        }
+      }
+    }
+    h1 {
+      text-align: center;
+    }
+  }
+}

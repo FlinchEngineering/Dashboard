@@ -1,0 +1,14 @@
+.formBarContainer {
+  height: 50px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.formBarContainer span {
+  margin-right: 25px;
+  cursor: pointer;
+}
+.formBarContainer span.active {
+  border-bottom: 3px solid #00A3FF;
+}

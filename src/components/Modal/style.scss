@@ -1,0 +1,21 @@
+@import '../../variables';
+
+.modal-container {
+  height: 100vh;
+  display: flex;
+  width: 100%;
+  background-color:$light;
+  position: absolute;
+  z-index: 10;
+  justify-content: center;
+  top: 0;
+  .modal {
+    background-color: $white;
+    width: 50%;
+    height: 30%;
+    top: 100px;
+    position: relative;
+    border-radius: 4px;
+    padding: 30px;
+  }
+}

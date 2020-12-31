@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react'
+import './styles.css'
+import Login from './components/pages/Login'
+import { useUser } from './hooks/useUser'
+import Home from './components/pages/Home'
+import StoreService from './services/StoreService'
+import { useDispatch } from 'react-redux'
+import { userActions } from './store/user'
+import Navbar from './components/Navbar'
+import Modal from './components/Modal'
 
 function App() {
+  const user = useUser()
+  const [showDash, setShowDash] = useState(false)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const checkUser = async () => {
+      const data = await StoreService.get('user')
+      console.log('ddd',data)
+      data && dispatch(userActions.getUser(data as any))
+    } 
+    checkUser()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(() => {
+    if(!!user.uid ) {
+      setShowDash(true)
+      StoreService.save('user',user)
+    }
+  }, [user])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {showDash&&<Navbar showDash={setShowDash}/>}
+      {showDash&&<Home/>}
+      {!showDash&&<Login/>}
+      <Modal/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

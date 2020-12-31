@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.formBarContainer {
+  height: 50px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    margin-right: 25px;
+    cursor: pointer;
+    &.active {
+      border-bottom: 3px solid $primary-color;
+    }
+  }
+}
