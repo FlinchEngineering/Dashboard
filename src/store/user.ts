@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit'
-import firebase from 'firebase'
 import AuthService from '../services/AuthService'
+import StoreService from '../services/StoreService'
+import { UserAuthInfo } from '../types'
 
-type User = Partial<firebase.UserInfo>
-
-const initState: User = {
+const initState: UserAuthInfo = {
   displayName: '',
   email: '',
   phoneNumber: '',
@@ -18,27 +17,40 @@ export const { actions, ...userSlice } = createSlice({
   reducers: {
     getUser (
       state,
-      {payload}: PayloadAction<User>
+      {payload}: PayloadAction<UserAuthInfo>
     ) {
       return {
         ...state,
         ...payload
       }
     },
-    clear (
-      state
-    ) {
-      return state
+    clear () {
+      return initState
     }
   }
 })
 
-const login = (email:string,pass:string,setError?:any) => async (dispatch:Dispatch) => {
+const login = (
+  email:string,
+  pass:string,
+  callback?:()=>void,
+  setError?:any
+) => async (
+  dispatch:Dispatch
+) => {
   const user = await AuthService.login(email,pass,setError)
-  !!user?.uid && dispatch(userActions.getUser(user))
+  !!user?.uid && dispatch(actions.getUser(user))
+  !!user?.uid && StoreService.save('user',user)
+  callback&&callback()
+}
+
+const logout = () => async (dispatch:Dispatch) => {
+  const deleted = StoreService.delete('user')
+  deleted && dispatch(actions.clear())
 }
 
 export const userActions = {
   ...actions,
-  login
+  login,
+  logout
 } 

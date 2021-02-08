@@ -1,0 +1,13 @@
+@import '../../variables';
+
+.selectContainer {
+  padding: 5px;
+  border-color: $border;
+  background-color: $white;
+  margin-bottom: 40px;
+  min-width: 350px;
+  cursor: pointer;
+  border-radius: 4px;
+  min-height: 35px;
+  font-size: 16px;
+}

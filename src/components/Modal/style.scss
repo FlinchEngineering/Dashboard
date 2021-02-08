@@ -1,21 +1,31 @@
 @import '../../variables';
 
 .modal-container {
-  height: 100vh;
+  height: 100%;
   display: flex;
   width: 100%;
   background-color:$light;
-  position: absolute;
+  position: fixed;
   z-index: 10;
   justify-content: center;
   top: 0;
+  height: 100vw;
+  z-index: 10;
+  align-self: center;
+  display: flex;
+  justify-content: center;
   .modal {
     background-color: $white;
     width: 50%;
     height: 30%;
-    top: 100px;
+    top: 5%;
     position: relative;
     border-radius: 4px;
     padding: 30px;
+    .close {
+      position: absolute;
+      right: 30px;
+      cursor: pointer;
+    }
   }
 }

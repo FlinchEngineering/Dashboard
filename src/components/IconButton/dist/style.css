@@ -1,0 +1,29 @@
+.iconBtnContainer {
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 100px;
+  margin-right: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.7);
+}
+.iconBtnContainer:hover {
+  opacity: 0.7;
+}
+.iconBtnContainer.danger {
+  background-color: rgba(213, 81, 81, 0.2);
+  color: #D55151;
+}
+.iconBtnContainer.info {
+  background-color: rgba(0, 163, 255, 0.1);
+  color: #00A3FF;
+}
+.iconBtnContainer .loader {
+  justify-content: center;
+  display: flex;
+  color: rgba(0, 0, 0, 0.2);
+}

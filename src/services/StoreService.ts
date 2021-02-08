@@ -5,7 +5,13 @@ export default class StoreService {
   }
 
   static delete (key:string) {
-    localStorage.removeItem(key)
+    try {
+      localStorage.removeItem(key)
+      return true
+    } catch (e) {
+      console.log(e.message)
+      return false
+    }
   }
 
   static async get (key:string) {

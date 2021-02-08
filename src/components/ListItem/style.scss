@@ -1,0 +1,52 @@
+@import '../../variables';
+
+.listContainer {
+  padding-left: 20px;
+  display: inline-flex;
+  background-color: $white;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  border-bottom: 0.5px solid rgba($color: $grey, $alpha: 0.1);
+  &:hover {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+  }
+  .listTitle {
+    flex:1;
+    height:100%;
+  }
+}
+
+.dataInfo {
+  display: flex;
+  margin-bottom: 5px;
+  border-bottom: 0.5px solid $grey;
+  background-color: rgba($color: $grey, $alpha: 0.02);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px;
+  .celebDp {
+    object-fit: cover;
+  }
+  .dataItem {
+    margin-right: 30px;
+  }
+  .vidContainer {
+    cursor: pointer;
+    .vidImg {
+      height: 50px;
+    }
+  }
+}
+
+.btns {
+  display: flex;
+  padding: 10px;
+  .btn {
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+  }
+}

@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import Button from '../../Button'
-import Input from '../../Input'
 import './style.scss'
-import logo from '../../../assets/logo.png'
-import { userActions } from '../../../store/user'
-import { useUser } from '../../../hooks/useUser'
+import logo from '../../assets/logo.png'
+import { userActions } from '../../store/user'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
+import { useUser } from '../../hooks/useUser'
+import { useHistory } from 'react-router-dom'
 
 const Login = () => {
   const dispatch = useDispatch()
   const user = useUser()
+  const { push } = useHistory()
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    console.log('uid',user.uid)
+    if (!!user.uid) {
+      push('dash')
+    }
+  }, [user,push])
   const onEmailChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
     setEmail(value)
@@ -24,8 +31,12 @@ const Login = () => {
   }
   const onLogin = async () => {
     setError('')
+    const callback = () => push('dash')
     if (email&&pass) {
-      dispatch(userActions.login(email,pass,setError))
+      dispatch(
+        userActions
+        .login(email,pass,callback,setError)
+      )
     }else {
       setError('Email and password fields must have values.')
     }

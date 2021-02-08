@@ -36,8 +36,8 @@ var Input = function (_a) {
             setCurrency(e.target.value);
     };
     var renderCurrency = function () {
-        return react_1["default"].createElement("div", null,
-            react_1["default"].createElement("select", { className: 'options', onChange: onCurrencyChange }, CURRENCY.map(function (d) { return react_1["default"].createElement("option", null, d); })));
+        return react_1["default"].createElement("div", { className: 'options' },
+            react_1["default"].createElement("select", { className: 'option', onChange: onCurrencyChange }, CURRENCY.map(function (d, i) { return react_1["default"].createElement("option", { key: i }, d); })));
     };
     var showCurrency = mode === 'currency'
         ? renderCurrency()

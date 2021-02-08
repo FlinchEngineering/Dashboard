@@ -27,7 +27,7 @@ exports.modalActions = exports.modalSlice = exports.actions = void 0;
 var toolkit_1 = require("@reduxjs/toolkit");
 var initState = {
     body: null,
-    show: true,
+    show: false,
     header: ''
 };
 exports.actions = (_a = toolkit_1.createSlice({

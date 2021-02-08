@@ -1,0 +1,11 @@
+.selectContainer {
+  padding: 5px;
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  margin-bottom: 40px;
+  min-width: 350px;
+  cursor: pointer;
+  border-radius: 4px;
+  min-height: 35px;
+  font-size: 16px;
+}

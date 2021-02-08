@@ -36,18 +36,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var firebase_1 = require("../config/dist/firebase");
+var firebase_1 = require("../config/firebase");
+var video_metadata_thumbnails_1 = require("video-metadata-thumbnails");
 var FormService = /** @class */ (function () {
     function FormService() {
     }
-    FormService.uploadImage = function (file) {
-        return __awaiter(this, void 0, void 0, function () {
+    FormService.uploadImage = function (path, file) {
+        return __awaiter(this, void 0, Promise, function () {
             var ref, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.storageRef.put(file)];
+                        return [4 /*yield*/, firebase_1.storage
+                                .ref()
+                                .child(path)
+                                .child(Date.now().toString())
+                                .put(file)];
                     case 1:
                         ref = (_a.sent()).ref;
                         return [4 /*yield*/, ref.getDownloadURL()];
@@ -63,34 +68,96 @@ var FormService = /** @class */ (function () {
     };
     FormService.uploadVideos = function (loc, files) {
         return __awaiter(this, void 0, void 0, function () {
-            var uploaded;
+            var uploaded, e_2;
             var _this = this;
             return __generator(this, function (_a) {
-                try {
-                    uploaded = files.map(function (file) { return __awaiter(_this, void 0, void 0, function () {
-                        var ref;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, firebase_1.storage.ref(loc).put(file)];
-                                case 1:
-                                    ref = (_a.sent()).ref;
-                                    return [4 /*yield*/, ref.getDownloadURL()];
-                                case 2: return [2 /*return*/, _a.sent()];
-                            }
-                        });
-                    }); });
-                    return [2 /*return*/, Promise.all(uploaded)];
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        uploaded = files
+                            .map(function (file) { return __awaiter(_this, void 0, void 0, function () {
+                            var ref;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, firebase_1.storage
+                                            .ref()
+                                            .child(loc)
+                                            .put(file)];
+                                    case 1:
+                                        ref = (_a.sent()).ref;
+                                        return [4 /*yield*/, ref.getDownloadURL()];
+                                    case 2: return [2 /*return*/, _a.sent()];
+                                }
+                            });
+                        }); });
+                        return [4 /*yield*/, Promise.all(uploaded)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                    case 2:
+                        e_2 = _a.sent();
+                        console.log(e_2.message);
+                        return [2 /*return*/, null];
+                    case 3: return [2 /*return*/];
                 }
-                catch (e) {
-                    console.log(e.message);
-                    return [2 /*return*/, null];
-                }
-                return [2 /*return*/];
             });
         });
     };
-    FormService.storageRef = firebase_1.storage.ref().child('celebs/');
-    FormService.samplesRef = firebase_1.storage.ref().child('samples');
+    FormService.uploadVideo = function (loc, file) {
+        return __awaiter(this, void 0, Promise, function () {
+            var ref, e_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, firebase_1.storage
+                                .ref()
+                                .child(loc)
+                                .child(Date.now().toString())
+                                .put(file)];
+                    case 1:
+                        ref = (_a.sent()).ref;
+                        return [4 /*yield*/, ref
+                                .getDownloadURL()];
+                    case 2: return [2 /*return*/, _a.sent()];
+                    case 3:
+                        e_3 = _a.sent();
+                        console.log(e_3.message);
+                        return [2 /*return*/, null];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    FormService.generateAndUploadThumbnail = function (path, file) {
+        return __awaiter(this, void 0, void 0, function () {
+            var duration, start, thumbnails, blob, uri, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, video_metadata_thumbnails_1.getMetadata(file)];
+                    case 1:
+                        duration = (_b.sent()).duration;
+                        start = duration / 2;
+                        return [4 /*yield*/, video_metadata_thumbnails_1.getThumbnails(file, {
+                                start: start,
+                                end: start,
+                                quality: 0.6
+                            })];
+                    case 2:
+                        thumbnails = _b.sent();
+                        blob = thumbnails[0].blob;
+                        _a = blob;
+                        if (!_a) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this
+                                .uploadImage(path, blob)];
+                    case 3:
+                        _a = (_b.sent());
+                        _b.label = 4;
+                    case 4:
+                        uri = _a;
+                        return [2 /*return*/, uri];
+                }
+            });
+        });
+    };
     return FormService;
 }());
 exports["default"] = FormService;

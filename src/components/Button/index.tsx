@@ -10,6 +10,7 @@ const Button: React.FC<ButtonProps> = ({
   title,
   children,
   invert,
+  className,
   ...props
 }) => {
   const styleName = invert 
@@ -19,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
     <button 
       {...props}
       title={title}
-      className={styleName}>
+      className={`${styleName} ${className}`}>
       {title||children}
     </button>
   )

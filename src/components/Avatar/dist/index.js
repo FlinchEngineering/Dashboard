@@ -1,9 +1,8 @@
 "use strict";
 exports.__esModule = true;
-exports.Avatar = void 0;
 var react_1 = require("react");
 require("./style.scss");
-exports.Avatar = function (_a) {
+var Avatar = function (_a) {
     var setImage = _a.setImage, img = _a.img;
     var _b = react_1.useState(null), url = _b[0], setUrl = _b[1];
     react_1.useEffect(function () {
@@ -11,6 +10,8 @@ exports.Avatar = function (_a) {
             var uri = URL.createObjectURL(img);
             setUrl(uri);
         }
+        else
+            setUrl(null);
     }, [img]);
     var fileRef = react_1.useRef(null);
     var onClick = function () {
@@ -28,3 +29,4 @@ exports.Avatar = function (_a) {
             "+",
             url && react_1["default"].createElement("img", { src: url, alt: 'dp', className: 'dp' }))));
 };
+exports["default"] = Avatar;

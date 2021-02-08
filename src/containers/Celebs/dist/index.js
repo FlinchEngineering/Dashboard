@@ -36,58 +36,52 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var firebase_1 = require("../config/firebase");
-var AuthService = /** @class */ (function () {
-    function AuthService() {
-    }
-    AuthService.login = function (email, pass, callback) {
-        return __awaiter(this, void 0, Promise, function () {
-            var user, d, e_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, firebase_1.auth.signInWithEmailAndPassword(email, pass)];
-                    case 1:
-                        user = (_a.sent()).user;
-                        d = {
-                            displayName: (user === null || user === void 0 ? void 0 : user.displayName) || '',
-                            email: (user === null || user === void 0 ? void 0 : user.email) || '',
-                            phoneNumber: (user === null || user === void 0 ? void 0 : user.phoneNumber) || '',
-                            photoURL: (user === null || user === void 0 ? void 0 : user.photoURL) || '',
-                            uid: (user === null || user === void 0 ? void 0 : user.uid) || ''
-                        };
-                        return [2 /*return*/, d];
-                    case 2:
-                        e_1 = _a.sent();
-                        callback(e_1.message);
-                        return [2 /*return*/, null];
-                    case 3: return [2 /*return*/];
-                }
-            });
+var react_1 = require("react");
+var ListItem_1 = require("../../components/ListItem");
+var CelebsService_1 = require("../../services/CelebsService");
+require("./style.scss");
+var Celebs = function () {
+    var _a = react_1.useState([]), celebs = _a[0], setCelebs = _a[1];
+    var _b = react_1.useState(false), loading = _b[0], setLoading = _b[1];
+    react_1.useEffect(function () {
+        getCelebs();
+    }, []);
+    var getCelebs = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    setLoading(true);
+                    return [4 /*yield*/, CelebsService_1["default"].getAllCelebs()];
+                case 1:
+                    data = _a.sent();
+                    data && setCelebs(data);
+                    setLoading(false);
+                    return [2 /*return*/];
+            }
         });
-    };
-    AuthService.createUser = function (email, pass) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, e_2;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, firebase_1.auth
-                                .createUserWithEmailAndPassword(email, pass)];
-                    case 1:
-                        res = _a.sent();
-                        return [2 /*return*/, res.user];
-                    case 2:
-                        e_2 = _a.sent();
-                        console.log(e_2.message);
-                        return [2 /*return*/, null];
-                    case 3: return [2 /*return*/];
-                }
-            });
+    }); };
+    var onDelete = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    console.log('deleting');
+                    return [4 /*yield*/, CelebsService_1["default"].deleteCelebUser(id)];
+                case 1:
+                    res = _a.sent();
+                    console.log('deleted:: ', res);
+                    res && setCelebs(function (c) {
+                        return c.filter(function (d) { return d.id !== id; });
+                    });
+                    return [2 /*return*/];
+            }
         });
-    };
-    return AuthService;
-}());
-exports["default"] = AuthService;
+    }); };
+    return loading
+        ? (react_1["default"].createElement("div", null, "Loading....."))
+        : react_1["default"].createElement("div", { className: 'celebsContainer' },
+            react_1["default"].createElement("div", { className: 'offset' }),
+            celebs.map(function (celeb, i) { return (react_1["default"].createElement(ListItem_1["default"], { key: i, id: celeb.id || '', title: celeb.alias, shouldDelete: true, onDelete: function () { return onDelete(celeb.id || ''); }, data: celeb, showData: true })); }));
+};
+exports["default"] = Celebs;

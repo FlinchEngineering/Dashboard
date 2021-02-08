@@ -56,39 +56,41 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var react_1 = require("react");
 require("./style.scss");
-var Input_1 = require("../../Input");
-var TextArea_1 = require("../../TextArea");
-var Button_1 = require("../../Button");
-var Avatar_1 = require("../../Avatar");
-var UserService_1 = require("../../../services/UserService");
-var Link_1 = require("../../Link");
-var movie_png_1 = require("../../../assets/movie.png");
-var close_png_1 = require("../../../assets/close.png");
+var movie_png_1 = require("../../assets/movie.png");
+var close_png_1 = require("../../assets/close.png");
 var react_redux_1 = require("react-redux");
-var modal_1 = require("../../../store/modal");
-var CLEAR_INTERVAL = 10000;
+var modal_1 = require("../../store/modal");
+var Link_1 = require("../../components/Link");
+var Avatar_1 = require("../../components/Avatar");
+var Input_1 = require("../../components/Input");
+var Button_1 = require("../../components/Button");
+var TextArea_1 = require("../../components/TextArea");
+var CelebsService_1 = require("../../services/CelebsService");
+var CraftsService_1 = require("../../services/CraftsService");
+var InputOptions_1 = require("../../components/InputOptions");
+var CLEAR_INTERVAL = 25000;
 var INIT_FORM = {
     alias: '',
     craft: '',
     price: {
         currency: 'GHS',
-        amount: ''
+        amount: 0
     },
     popularity: 3,
     bio: '',
-    email: '',
-    imageUrl: ''
+    email: ''
 };
 function Home() {
     var _this = this;
     var dispatch = react_redux_1.useDispatch();
     var _a = react_1.useState(false), submitting = _a[0], setSubmitting = _a[1];
     var _b = react_1.useState(null), image = _b[0], setImage = _b[1];
-    var _c = react_1.useState(INIT_FORM), form = _c[0], setForm = _c[1];
-    var _d = react_1.useState('GHS'), currency = _d[0], setCurrency = _d[1];
-    var _e = react_1.useState(''), info = _e[0], setInfo = _e[1];
+    var _c = react_1.useState([]), crafts = _c[0], setCrafts = _c[1];
+    var _d = react_1.useState(INIT_FORM), form = _d[0], setForm = _d[1];
+    var _e = react_1.useState('GHS'), currency = _e[0], setCurrency = _e[1];
+    var _f = react_1.useState(''), info = _f[0], setInfo = _f[1];
     var sampleRef = react_1.useRef(null);
-    var _f = react_1.useState(null), samples = _f[0], setSamples = _f[1];
+    var _g = react_1.useState(null), samples = _g[0], setSamples = _g[1];
     var hasSamples = samples && (samples === null || samples === void 0 ? void 0 : samples.length) > 0;
     react_1.useEffect(function () {
         var timer = !!info && window.setTimeout(function () {
@@ -99,6 +101,16 @@ function Home() {
                 clearTimeout(timer);
         };
     }, [info]);
+    react_1.useEffect(function () {
+        !!info && dispatch(modal_1.modalActions.showModal({
+            body: info,
+            header: '',
+            show: true
+        }));
+    }, [info, dispatch]);
+    react_1.useEffect(function () {
+        fetchCrafts();
+    }, []);
     var onChange = function (key, val) {
         if (key === 'price') {
             return setForm(function (form) {
@@ -121,19 +133,23 @@ function Home() {
                 case 0:
                     setSubmitting(true);
                     dispatch(modal_1.modalActions.showModal({
-                        body: 'Creating Celeb...',
+                        body: 'Creating Celebrity...',
                         header: 'Creating',
                         show: true
                     }));
-                    isValid = validateInputs();
-                    if (!isValid) return [3 /*break*/, 3];
-                    if (!image) {
+                    console.log('IMAGE: ', image);
+                    if (!!!image) {
                         setSubmitting(false);
                         return [2 /*return*/, setInfo("Please upload an image. Click on the avatar above.")];
                     }
+                    console.log(form);
+                    isValid = validateInputs();
+                    console.log(isValid);
+                    if (!isValid) return [3 /*break*/, 3];
                     _a = image;
                     if (!_a) return [3 /*break*/, 2];
-                    return [4 /*yield*/, UserService_1["default"].createCeleb(__assign(__assign(__assign({}, INIT_FORM), form), { image: image }), samples || undefined)];
+                    return [4 /*yield*/, CelebsService_1["default"]
+                            .createCeleb(__assign(__assign(__assign({}, INIT_FORM), form), { image: image }), samples || undefined)];
                 case 1:
                     _a = (_b.sent());
                     _b.label = 2;
@@ -142,6 +158,8 @@ function Home() {
                     if (res) {
                         setInfo('User Created.');
                         setForm(INIT_FORM);
+                        setSamples(null);
+                        setImage(null);
                     }
                     else {
                         setInfo('Failed to create User.');
@@ -156,6 +174,19 @@ function Home() {
             }
         });
     }); };
+    var fetchCrafts = function () { return __awaiter(_this, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, CraftsService_1["default"]
+                        .getCrafts()];
+                case 1:
+                    data = _a.sent();
+                    data && setCrafts(data);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     var removeVideo = function (name) {
         setSamples(function (s) {
             var samps = s === null || s === void 0 ? void 0 : s.filter(function (d) { return d.name !== name; });
@@ -164,13 +195,18 @@ function Home() {
     };
     var validateInputs = function () {
         var data = Object.values(form);
-        var msgs = data.filter(function (d) { return ((!!d) === false); });
-        return msgs.length === 1;
+        var msgs = data.filter(function (d) { return !!!d; });
+        console.log(msgs.length);
+        console.log(data);
+        return msgs.length < 6;
     };
     var getVal = function (key) {
         var _a;
         if (key === 'price') {
             return (_a = form[key]) === null || _a === void 0 ? void 0 : _a.amount;
+        }
+        else if (key === 'image' || key === 'samples') {
+            return '';
         }
         else
             return form[key];
@@ -209,8 +245,8 @@ function Home() {
     };
     var renderSamples = function () {
         return (react_1["default"].createElement(react_1["default"].Fragment, null,
-            react_1["default"].createElement("div", { className: 'samples' }, samples && samples.map(function (sample) {
-                return react_1["default"].createElement("div", { className: 'video' },
+            react_1["default"].createElement("div", { className: 'samples' }, samples && samples.map(function (sample, i) {
+                return react_1["default"].createElement("div", { key: i, className: 'video' },
                     react_1["default"].createElement("span", { onClick: function () { return removeVideo(sample.name); }, className: 'close', role: 'button' },
                         react_1["default"].createElement("img", { src: close_png_1["default"], alt: 'close' })),
                     react_1["default"].createElement("img", { className: 'vidIcon', src: movie_png_1["default"], alt: 'video icon' }),
@@ -223,7 +259,7 @@ function Home() {
             react_1["default"].createElement("div", { className: 'offset' }),
             react_1["default"].createElement("div", { className: 'content' },
                 react_1["default"].createElement("h1", null, "Create Celebrity"),
-                react_1["default"].createElement(Avatar_1.Avatar, { setImage: setImage, img: image }),
+                react_1["default"].createElement(Avatar_1["default"], { setImage: setImage, img: image }),
                 react_1["default"].createElement("div", { className: 'inputs' },
                     react_1["default"].createElement(Input_1["default"], { placeholder: 'Alias', onChange: function (_a) {
                             var target = _a.target;
@@ -233,7 +269,7 @@ function Home() {
                             var target = _a.target;
                             return onChange('email', target.value);
                         } }),
-                    react_1["default"].createElement(Input_1["default"], { placeholder: 'Craft', value: getVal('craft'), onChange: function (_a) {
+                    react_1["default"].createElement(InputOptions_1["default"], { options: crafts, value: getVal('craft'), onChange: function (_a) {
                             var target = _a.target;
                             return onChange('craft', target.value);
                         } }),
@@ -253,10 +289,9 @@ function Home() {
                         react_1["default"].createElement("input", { onChange: addSample, className: 'sample', ref: sampleRef, type: 'file' }),
                         hasSamples
                             ? renderSamples()
-                            : react_1["default"].createElement(Link_1["default"], { onClick: uploadSamples }, "+ Upload video Sample")),
+                            : react_1["default"].createElement(Link_1["default"], { onClick: uploadSamples }, "+ Upload video Sample(s)")),
                     react_1["default"].createElement(Button_1["default"], { title: 'Create', onClick: onCreate, disabled: submitting }),
-                    react_1["default"].createElement("br", null),
-                    info)),
+                    react_1["default"].createElement("br", null))),
             react_1["default"].createElement("div", { className: 'offset' }))));
 }
 exports["default"] = Home;

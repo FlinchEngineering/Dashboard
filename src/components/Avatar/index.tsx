@@ -6,7 +6,7 @@ interface AvatarProps {
   setImage: (val:any)=>void;
 }
 
-export const Avatar: React.FC<AvatarProps> = ({
+const Avatar: React.FC<AvatarProps> = ({
   setImage,
   img
 }) => {
@@ -15,7 +15,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     if (img) {
       const uri = URL.createObjectURL(img)
       setUrl(uri)
-    }
+    } else setUrl(null)
   }, [img])
   const fileRef = useRef<HTMLInputElement>(null)
   const onClick = () => {
@@ -29,7 +29,11 @@ export const Avatar: React.FC<AvatarProps> = ({
   }
   return (
     <>
-      <input onChange={onChange} ref={fileRef} type='file' className='img-selector' />
+      <input 
+        onChange={onChange} 
+        ref={fileRef} 
+        type='file' 
+        className='img-selector' />
       <div 
         role='button' 
         className='avatar'
@@ -45,3 +49,5 @@ export const Avatar: React.FC<AvatarProps> = ({
     </>
   )
 }
+
+export default Avatar

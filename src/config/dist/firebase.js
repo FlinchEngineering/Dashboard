@@ -1,10 +1,11 @@
 "use strict";
 exports.__esModule = true;
-exports.storage = exports.db = exports.auth = exports.firebaseConfig = void 0;
+exports.https = exports.storage = exports.db = exports.auth = exports.firebaseConfig = void 0;
 var app_1 = require("firebase/app");
 require("firebase/auth");
 require("firebase/firestore");
 require("firebase/storage");
+require("firebase/functions");
 exports.firebaseConfig = {
     apiKey: "AIzaSyBTGE_5_pMDsiocYexxVvpUAl4bd4mD7yc",
     authDomain: "shoutouts-3c57c.firebaseapp.com",
@@ -24,3 +25,4 @@ else {
 exports.auth = app_1["default"].auth();
 exports.db = app_1["default"].firestore();
 exports.storage = app_1["default"].storage();
+exports.https = app_1["default"].functions().httpsCallable;

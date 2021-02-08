@@ -1,0 +1,50 @@
+.listContainer {
+  padding-left: 20px;
+  display: inline-flex;
+  background-color: #fff;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+.listContainer:hover {
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+}
+.listContainer .listTitle {
+  flex: 1;
+  height: 100%;
+}
+
+.dataInfo {
+  display: flex;
+  margin-bottom: 5px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.02);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+.dataInfo .celebDp {
+  object-fit: cover;
+}
+.dataInfo .dataItem {
+  margin-right: 30px;
+}
+.dataInfo .vidContainer {
+  cursor: pointer;
+}
+.dataInfo .vidContainer .vidImg {
+  height: 50px;
+}
+
+.btns {
+  display: flex;
+  padding: 10px;
+}
+.btns .btn {
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
+}

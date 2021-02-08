@@ -2,7 +2,8 @@
   height: 60px;
   flex-direction: row;
   display: flex;
-  background-color: #00A3FF;
+  background-color: darkblue;
+  padding: 10px;
 }
 .nav-container .content {
   flex: 8;
@@ -13,8 +14,19 @@
 }
 .nav-container .content .logo {
   height: 50px;
-  margin-bottom: 15px;
+  cursor: pointer;
 }
 .nav-container .content button {
   cursor: pointer;
+}
+.nav-container .content .white {
+  color: #fff;
+}
+.nav-container .content .right {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.nav-container .content .right div {
+  margin-right: 20px;
 }

@@ -38,19 +38,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var react_1 = require("react");
 var react_redux_1 = require("react-redux");
-var Button_1 = require("../../Button");
-var Input_1 = require("../../Input");
 require("./style.scss");
-var logo_png_1 = require("../../../assets/logo.png");
-var user_1 = require("../../../store/user");
-var useUser_1 = require("../../../hooks/useUser");
+var logo_png_1 = require("../../assets/logo.png");
+var user_1 = require("../../store/user");
+var Input_1 = require("../../components/Input");
+var Button_1 = require("../../components/Button");
+var useUser_1 = require("../../hooks/useUser");
+var react_router_dom_1 = require("react-router-dom");
 var Login = function () {
     var dispatch = react_redux_1.useDispatch();
     var user = useUser_1.useUser();
+    var push = react_router_dom_1.useHistory().push;
     var _a = react_1.useState(''), email = _a[0], setEmail = _a[1];
     var _b = react_1.useState(''), pass = _b[0], setPass = _b[1];
     var _c = react_1.useState(''), error = _c[0], setError = _c[1];
-    var _d = react_1.useState(false), loading = _d[0], setLoading = _d[1];
+    react_1.useEffect(function () {
+        console.log('uid', user.uid);
+        if (!!user.uid) {
+            push('dash');
+        }
+    }, [user, push]);
     var onEmailChange = function (e) {
         var value = e.target.value;
         setEmail(value);
@@ -60,10 +67,13 @@ var Login = function () {
         setPass(value);
     };
     var onLogin = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var callback;
         return __generator(this, function (_a) {
             setError('');
+            callback = function () { return push('dash'); };
             if (email && pass) {
-                dispatch(user_1.userActions.login(email, pass, setError));
+                dispatch(user_1.userActions
+                    .login(email, pass, callback, setError));
             }
             else {
                 setError('Email and password fields must have values.');

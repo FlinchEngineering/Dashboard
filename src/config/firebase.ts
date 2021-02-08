@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
+import "firebase/functions";
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBTGE_5_pMDsiocYexxVvpUAl4bd4mD7yc",
@@ -24,3 +25,4 @@ if (!firebase.apps.length) {
 export const auth = firebase.auth()
 export const db = firebase.firestore()
 export const storage = firebase.storage()
+export const https = firebase.functions().httpsCallable

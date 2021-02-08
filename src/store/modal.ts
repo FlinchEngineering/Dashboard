@@ -3,7 +3,7 @@ import { ModalPayload } from '../types'
 
 const initState: ModalPayload = {
   body: null,
-  show: true,
+  show: false,
   header: ''
 }
 

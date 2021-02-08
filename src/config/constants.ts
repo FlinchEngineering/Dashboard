@@ -1,0 +1,1 @@
+export const API = 'https://us-central1-shoutouts-3c57c.cloudfunctions.net/'

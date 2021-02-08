@@ -38,46 +38,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var react_1 = require("react");
 require("./styles.css");
-var Login_1 = require("./components/pages/Login");
-var useUser_1 = require("./hooks/useUser");
-var Home_1 = require("./components/pages/Home");
 var StoreService_1 = require("./services/StoreService");
 var react_redux_1 = require("react-redux");
 var user_1 = require("./store/user");
 var Navbar_1 = require("./components/Navbar");
 var Modal_1 = require("./components/Modal");
-function App() {
-    var _this = this;
-    var user = useUser_1.useUser();
-    var _a = react_1.useState(false), showDash = _a[0], setShowDash = _a[1];
+var Routes_1 = require("./components/Routes");
+require("react-loader-spinner/dist/loader/css/react-spinner-loader.css");
+var App = function () {
     var dispatch = react_redux_1.useDispatch();
     react_1.useEffect(function () {
-        var checkUser = function () { return __awaiter(_this, void 0, void 0, function () {
+        var checkUser = function () { return __awaiter(void 0, void 0, void 0, function () {
             var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, StoreService_1["default"].get('user')];
                     case 1:
                         data = _a.sent();
-                        console.log('ddd', data);
                         data && dispatch(user_1.userActions.getUser(data));
+                        console.log('checking', data);
                         return [2 /*return*/];
                 }
             });
         }); };
         checkUser();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-    react_1.useEffect(function () {
-        if (!!user.uid) {
-            setShowDash(true);
-            StoreService_1["default"].save('user', user);
-        }
-    }, [user]);
+    }, [dispatch]);
     return (react_1["default"].createElement("div", null,
-        showDash && react_1["default"].createElement(Navbar_1["default"], { showDash: setShowDash }),
-        showDash && react_1["default"].createElement(Home_1["default"], null),
-        !showDash && react_1["default"].createElement(Login_1["default"], null),
+        react_1["default"].createElement(Routes_1["default"], null,
+            react_1["default"].createElement(Navbar_1["default"], null)),
         react_1["default"].createElement(Modal_1["default"], null)));
-}
+};
 exports["default"] = App;

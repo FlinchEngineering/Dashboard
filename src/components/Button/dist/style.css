@@ -8,6 +8,9 @@
   font-weight: bold;
   cursor: pointer;
 }
+.btn-container.sm {
+  min-width: 60px;
+}
 
 .btn-invert {
   height: 40px;

@@ -1,35 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './style.scss'
-import Input from '../../Input'
-import { TextArea } from '../../TextArea'
-import Button from '../../Button'
-import { Avatar } from '../../Avatar'
-import UserService from '../../../services/UserService'
-import Link from '../../Link'
-import { Currency, User } from '../../../types'
-import videoIcon from '../../../assets/movie.png'
-import closeIcon from '../../../assets/close.png'
+import { Celeb, Currency } from '../../types'
+import videoIcon from '../../assets/movie.png'
+import closeIcon from '../../assets/close.png'
 import { useDispatch } from 'react-redux'
-import { modalActions } from '../../../store/modal'
+import { modalActions } from '../../store/modal'
+import Link from '../../components/Link'
+import Avatar from '../../components/Avatar'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
+import { TextArea } from '../../components/TextArea'
+import CelebsService from '../../services/CelebsService'
+import CraftsService from '../../services/CraftsService'
+import InputOptions from '../../components/InputOptions'
 
-const CLEAR_INTERVAL = 10000
-const INIT_FORM: Omit<User,'celebrity'|'image'> = {
+const CLEAR_INTERVAL = 25000
+const INIT_FORM: Partial<Celeb> = {
   alias:'',
   craft:'',
   price:{
     currency:'GHS',
-    amount:''
+    amount:0
   },
   popularity:3,
   bio:'',
-  email: '',
-  imageUrl: '',
+  email: ''
 }
 
 function Home() {
   const dispatch = useDispatch()
   const [submitting, setSubmitting] = useState(false)
   const [image, setImage] = useState<File|null>(null)
+  const [crafts, setCrafts] = useState<string[]>([])
   const [form, setForm] = useState(INIT_FORM)
   const [currency, setCurrency] = useState<Currency>('GHS')
   const [info, setInfo] = useState('')
@@ -45,6 +47,17 @@ function Home() {
       clearTimeout(timer)
     }
   }, [info])
+  useEffect(() => {
+    !!info && dispatch(modalActions.showModal({
+      body:info,
+      header:'',
+      show: true
+    }))
+  }, [info,dispatch])
+  useEffect(() => {
+    fetchCrafts()
+  }, [])
+
   const onChange = (key: keyof typeof INIT_FORM, val:any) => {
     if (key==='price') {
       return setForm(form=>(
@@ -63,26 +76,33 @@ function Home() {
   const onCreate = async () => {
     setSubmitting(true)
     dispatch(modalActions.showModal({
-      body: 'Creating Celeb...',
+      body: 'Creating Celebrity...',
       header: 'Creating',
       show: true
     }))
+    console.log('IMAGE: ',image)
+    if (!!!image) {
+      setSubmitting(false)
+      return setInfo("Please upload an image. Click on the avatar above.")
+    }
+    console.log(form)
     const isValid = validateInputs()
+    console.log(isValid)
     if (isValid) {
-      if (!image) {
-        setSubmitting(false)
-        return setInfo("Please upload an image. Click on the avatar above.")
-      }
-      const res = image && await UserService.createCeleb({
-        ...INIT_FORM,
-        ...form,
-        image,
-      },
-        samples||undefined
-      )
+      const res = image && 
+        await CelebsService
+          .createCeleb({
+            ...INIT_FORM,
+            ...form,
+            image,
+          },
+            samples||undefined
+          )
       if (res) {
         setInfo('User Created.')
         setForm(INIT_FORM)
+        setSamples(null)
+        setImage(null)
       } else {
         setInfo('Failed to create User.')
       }
@@ -90,6 +110,12 @@ function Home() {
       setInfo('Please make sure you have entered the right details')
     }
     setSubmitting(false)
+  }
+  const fetchCrafts = async () => {
+    const data = await CraftsService
+      .getCrafts()
+    data && setCrafts(data)
+
   }
   const removeVideo = (name:string) => {
     setSamples(s=>{
@@ -99,17 +125,27 @@ function Home() {
   }
   const validateInputs = () => {
     const data = Object.values(form)
-    const msgs = data.filter(d=>((!!d)===false))
-    return msgs.length === 1
+    const msgs = data.filter(d=>!!!d)
+    console.log(msgs.length)
+    console.log(data)
+    return msgs.length < 6
   }
   const getVal = (key:keyof typeof INIT_FORM) => {
     if (key === 'price') {
       return form[key]?.amount
+    } else if (key==='image'||key==='samples') {
+      return ''
     } else return form[key]
   }
   const getCurrency = (val:Currency) => {
     setCurrency(val)
-    setForm(d=>({...d,price:{...d.price,currency:val}}))
+    setForm(d=>({
+      ...d,
+      price:{
+        ...d.price,
+        currency:val
+      }
+    }))
   }
   const uploadSamples = () => {
     sampleRef.current &&
@@ -141,8 +177,10 @@ function Home() {
     return(
       <>
         <div className='samples'>
-          {samples&&samples.map((sample)=>{
-            return <div className='video'>
+          {samples&&samples.map((sample,i)=>{
+            return <div 
+              key={i} 
+              className='video'>
               <span 
                 onClick={()=>removeVideo(sample.name)} 
                 className='close' 
@@ -178,8 +216,8 @@ function Home() {
               value={getVal('email')}
               onChange={({target})=>onChange('email',target.value)}
             />
-            <Input
-              placeholder='Craft'
+            <InputOptions
+              options={crafts}
               value={getVal('craft')}
               onChange={({target})=>onChange('craft',target.value)}
             />
@@ -213,7 +251,7 @@ function Home() {
               {hasSamples
               ? renderSamples()
               :<Link onClick={uploadSamples}>
-                + Upload video Sample
+                + Upload video Sample(s)
               </Link>}
             </div>
             <Button
@@ -222,7 +260,6 @@ function Home() {
               disabled={submitting}
             />
             <br/>
-            {info}
           </div>
         </div>
         <div className='offset' />

@@ -26,12 +26,15 @@ const Input: React.FC<InputProps> = ({
     setCurrency(e.target.value as Currency)
   }
   const renderCurrency = () => {
-    return <div>
-      <select 
-        className='options'
+    return <div
+      className='options'
+    >
+      <select
+        className='option'
         onChange={onCurrencyChange}
       >
-        {CURRENCY.map(d=><option>
+        {CURRENCY.map((d,i)=><option 
+          key={i}>
           {d}
         </option>)}
       </select>

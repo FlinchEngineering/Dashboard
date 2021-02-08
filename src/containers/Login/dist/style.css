@@ -4,7 +4,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  background-image: url("../../../assets/bck.png");
+  background-image: url("../../assets/bck.png");
 }
 .container .form {
   display: flex;
@@ -24,8 +24,7 @@
   min-width: 250px;
 }
 .container .form .logo {
-  height: 70px;
-  width: 70px;
+  height: 100px;
   margin-bottom: 20px;
 }
 .container .form input {

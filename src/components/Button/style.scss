@@ -9,6 +9,9 @@
   color: $white;
   font-weight: bold;
   cursor: pointer;
+  &.sm {
+    min-width: 60px;
+  }
 }
 
 .btn-invert {

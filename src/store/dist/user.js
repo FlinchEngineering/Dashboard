@@ -62,6 +62,7 @@ exports.__esModule = true;
 exports.userActions = exports.userSlice = exports.actions = void 0;
 var toolkit_1 = require("@reduxjs/toolkit");
 var AuthService_1 = require("../services/AuthService");
+var StoreService_1 = require("../services/StoreService");
 var initState = {
     displayName: '',
     email: '',
@@ -77,21 +78,32 @@ exports.actions = (_a = toolkit_1.createSlice({
             var payload = _a.payload;
             return __assign(__assign({}, state), payload);
         },
-        clear: function (state) {
-            return state;
+        clear: function () {
+            return initState;
         }
     }
 }), _a).actions, exports.userSlice = __rest(_a, ["actions"]);
-var login = function (email, pass, setError) { return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
+var login = function (email, pass, callback, setError) { return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
     var user;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, AuthService_1["default"].login(email, pass, setError)];
             case 1:
                 user = _a.sent();
-                !!(user === null || user === void 0 ? void 0 : user.uid) && dispatch(exports.userActions.getUser(user));
+                !!(user === null || user === void 0 ? void 0 : user.uid) && dispatch(exports.actions.getUser(user));
+                !!(user === null || user === void 0 ? void 0 : user.uid) && StoreService_1["default"].save('user', user);
+                callback && callback();
                 return [2 /*return*/];
         }
     });
 }); }; };
-exports.userActions = __assign(__assign({}, exports.actions), { login: login });
+var logout = function () { return function (dispatch) { return __awaiter(void 0, void 0, void 0, function () {
+    var deleted;
+    return __generator(this, function (_a) {
+        deleted = StoreService_1["default"]["delete"]('user');
+        deleted && dispatch(exports.actions.clear());
+        return [2 /*return*/];
+    });
+}); }; };
+exports.userActions = __assign(__assign({}, exports.actions), { login: login,
+    logout: logout });

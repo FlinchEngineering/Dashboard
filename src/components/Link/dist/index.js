@@ -25,7 +25,7 @@ exports.__esModule = true;
 var react_1 = require("react");
 require("./style.scss");
 var Link = function (_a) {
-    var children = _a.children, className = _a.className, props = __rest(_a, ["children", "className"]);
-    return (react_1["default"].createElement("div", __assign({}, props, { className: "link " + className, role: 'button' }), children));
+    var children = _a.children, className = _a.className, white = _a.white, props = __rest(_a, ["children", "className", "white"]);
+    return (react_1["default"].createElement("div", __assign({}, props, { className: "link " + className + " " + (white && 'white'), role: 'button' }), children));
 };
 exports["default"] = Link;

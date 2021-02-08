@@ -1,0 +1,13 @@
+.craftsContainer {
+  padding: 20px;
+}
+.craftsContainer .header {
+  text-align: center;
+}
+.craftsContainer .inputRow {
+  display: flex;
+}
+.craftsContainer .list {
+  display: flex;
+  flex-direction: column;
+}

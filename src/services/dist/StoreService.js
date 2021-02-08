@@ -43,7 +43,14 @@ var StoreService = /** @class */ (function () {
         localStorage.setItem(key, JSON.stringify(val));
     };
     StoreService["delete"] = function (key) {
-        localStorage.removeItem(key);
+        try {
+            localStorage.removeItem(key);
+            return true;
+        }
+        catch (e) {
+            console.log(e.message);
+            return false;
+        }
     };
     StoreService.get = function (key) {
         return __awaiter(this, void 0, void 0, function () {
