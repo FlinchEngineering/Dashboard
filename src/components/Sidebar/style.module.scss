@@ -1,0 +1,45 @@
+@import '../../variables';
+
+.container {
+  position: fixed;
+  height: 100vh;
+  background-color: $white;
+  -webkit-box-shadow: 4px 2px 20px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 4px 2px 20px 0px rgba(0,0,0,0.1);
+  box-shadow: 4px 2px 20px 0px rgba(0,0,0,0.1);
+  min-width: 200px;
+  .close {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    background-color: $light-primary;
+    color: $primary-color;
+  }
+  .logoContainer {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 100%;
+    cursor: pointer;
+    .logo {
+      height: 80px;
+      border-radius: 100px;
+    }
+  }
+  .menuContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    height: 75%;
+    .menuItems {
+      display: inline-flex;
+      flex-direction: column;
+      div {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

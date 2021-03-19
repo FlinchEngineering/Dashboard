@@ -8,9 +8,22 @@
   min-width: 120px;
   color: $white;
   font-weight: bold;
+  overflow: hidden;
   cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
   &.sm {
     min-width: 60px;
+  }
+  .loader {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      height: 25px;
+    }
   }
 }
 

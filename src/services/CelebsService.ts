@@ -149,4 +149,17 @@ export default class CelebsService {
       return null
     }
   }
+
+  static async updateCeleb (data:Partial<Celeb>) {
+    try {
+      const res = await this
+        .CelebsRef
+        .doc(data.id)
+        .update(data)
+      return res
+    } catch (e) {
+      console.log(e.message)
+      return null
+    }
+  }
 }

@@ -304,6 +304,29 @@ var CelebsService = /** @class */ (function () {
             });
         });
     };
+    CelebsService.updateCeleb = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, e_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this
+                                .CelebsRef
+                                .doc(data.id)
+                                .update(data)];
+                    case 1:
+                        res = _a.sent();
+                        return [2 /*return*/, res];
+                    case 2:
+                        e_7 = _a.sent();
+                        console.log(e_7.message);
+                        return [2 /*return*/, null];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     CelebsService.CelebsRef = firebase_1.db.collection('celebs');
     CelebsService.UserRef = firebase_1.db.collection('users');
     return CelebsService;

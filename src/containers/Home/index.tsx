@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './style.scss'
 import { Celeb, Currency } from '../../types'
-import videoIcon from '../../assets/movie.png'
-import closeIcon from '../../assets/close.png'
 import { useDispatch } from 'react-redux'
 import { modalActions } from '../../store/modal'
 import Link from '../../components/Link'
@@ -13,6 +11,7 @@ import { TextArea } from '../../components/TextArea'
 import CelebsService from '../../services/CelebsService'
 import CraftsService from '../../services/CraftsService'
 import InputOptions from '../../components/InputOptions'
+import VideoIcon from '../../components/VideoIcon'
 
 const CLEAR_INTERVAL = 25000
 const INIT_FORM: Partial<Celeb> = {
@@ -126,8 +125,6 @@ function Home() {
   const validateInputs = () => {
     const data = Object.values(form)
     const msgs = data.filter(d=>!!!d)
-    console.log(msgs.length)
-    console.log(data)
     return msgs.length < 6
   }
   const getVal = (key:keyof typeof INIT_FORM) => {
@@ -178,21 +175,16 @@ function Home() {
       <>
         <div className='samples'>
           {samples&&samples.map((sample,i)=>{
-            return <div 
-              key={i} 
-              className='video'>
-              <span 
-                onClick={()=>removeVideo(sample.name)} 
-                className='close' 
-                role='button'>
-                <img src={closeIcon} alt='close' />
-              </span>
-              <img className='vidIcon' src={videoIcon} alt='video icon'/>
-              <p>{sample.name}</p>
-            </div>
+            return <VideoIcon
+              sample={sample}
+              removeVideo={()=>
+                removeVideo(sample.name)}
+              key={i}/>
           })}
         </div>
-        <Link className='add' onClick={uploadSamples}>
+        <Link 
+          className='add' 
+          onClick={uploadSamples}>
           +
         </Link>
       </>
@@ -217,6 +209,7 @@ function Home() {
               onChange={({target})=>onChange('email',target.value)}
             />
             <InputOptions
+              placeholder='Craft'
               options={crafts}
               value={getVal('craft')}
               onChange={({target})=>onChange('craft',target.value)}

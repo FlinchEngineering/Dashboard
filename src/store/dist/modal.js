@@ -36,7 +36,7 @@ exports.actions = (_a = toolkit_1.createSlice({
     reducers: {
         showModal: function (state, _a) {
             var payload = _a.payload;
-            return __assign(__assign({}, state), payload);
+            return __assign(__assign(__assign({}, state), { show: true }), payload);
         },
         clearModal: function () {
             return initState;

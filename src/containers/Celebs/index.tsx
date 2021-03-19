@@ -35,17 +35,21 @@ const Celebs = () => {
     )
     : <div className='celebsContainer'>
       <div className='offset' />
-      {celebs.map((celeb,i)=>(
-        <ListItem 
-          key={i}
-          id={celeb.id||''}
-          title={celeb.alias}
-          shouldDelete
-          onDelete={()=>onDelete(celeb.id||'')}
-          data={celeb}
-          showData
-        />
-      ))}
+      <div className='celebs'>
+        <h1>Celebrities</h1>
+        {celebs.map((celeb,i)=>(
+          <ListItem 
+            key={i}
+            id={celeb.id||''}
+            title={celeb.alias}
+            shouldDelete
+            onDelete={()=>onDelete(celeb.id||'')}
+            data={celeb}
+            showData
+          />
+        ))}
+      </div>
+      <div className='offset' />
     </div>
 }
 

@@ -1,10 +1,10 @@
 .home-container {
   display: flex;
+  background: rgba(225, 225, 240, 0.2);
 }
 .home-container .content {
   display: flex;
   flex: 8;
-  padding-top: 50px;
   flex-direction: column;
   margin-bottom: 100px;
 }
@@ -51,29 +51,6 @@
   justify-content: space-evenly;
   min-width: 350px;
   padding-top: 20px;
-}
-.home-container .content .inputs .samples .video {
-  margin-right: 10px;
-  margin-left: 10px;
-  width: 100px;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  word-break: break-all;
-  position: relative;
-}
-.home-container .content .inputs .samples .video .close {
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  top: -10px;
-}
-.home-container .content .inputs .samples .vidIcon {
-  height: 50px;
-  width: 50px;
-  color: #00A3FF;
-  fill: #00A3FF;
-  stroke: #00A3FF;
 }
 .home-container .content h1 {
   text-align: center;

@@ -2,7 +2,7 @@
   height: 60px;
   flex-direction: row;
   display: flex;
-  background-color: darkblue;
+  background-color: transparent;
   padding: 10px;
 }
 .nav-container .content {
@@ -11,9 +11,16 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.nav-container .content .hamburger {
+  font-size: 35px;
+  background-color: transparent;
+  color: #00A3FF;
 }
 .nav-container .content .logo {
-  height: 50px;
+  height: 35px;
   cursor: pointer;
 }
 .nav-container .content button {

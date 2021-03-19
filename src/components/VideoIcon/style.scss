@@ -1,0 +1,25 @@
+@import '../../variables';
+
+.video {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 100px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  word-break: break-all;
+  position: relative;
+  .close {
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+  }
+  .vidIcon {
+    height: 50px;
+    width: 50px;
+    color: $primary-color;
+    fill: $primary-color;
+    stroke: $primary-color;
+    margin-top: 10px;
+  }
+}

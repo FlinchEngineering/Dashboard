@@ -51,19 +51,15 @@ const Login = () => {
             alt='logo'
           />
         </div>
-        <Input
-          placeholder='Email'
-          onChange={onEmailChange}
-          value={email}
-        />
-        <Input
-          placeholder='Password'
-          type='password'
-          onChange={onPassChange}
-          value={pass}
-        />
+        <div>
+          <input onChange={onEmailChange} placeholder='Email' />
+        </div>
+        <div>
+          <input onChange={onPassChange} placeholder='Password' type='password' />
+        </div>
         <Button
           title='Login'
+          className='btn'
           onClick={onLogin}
         />
         <br/>

@@ -44,7 +44,7 @@ const Input: React.FC<InputProps> = ({
     ? renderCurrency()
     : undefined
   return (
-    <div className='input-main-container'>
+    <div className={`input-main-container ${className||''}`}>
       {showCurrency}
       <input 
         className='input-container' 

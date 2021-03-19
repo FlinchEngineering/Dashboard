@@ -10,7 +10,9 @@ interface ModalProps {
   show?: boolean;
 }
 
-const Modal: React.FC<ModalProps> = () => {
+const Modal: React.FC<ModalProps> = ({
+  children
+}) => {
   const dispatch = useDispatch()
   const {
     body,
@@ -31,12 +33,12 @@ const Modal: React.FC<ModalProps> = () => {
   return show 
   ? <div className='modal-container'>
       <div className='modal'>
-        <span onClick={close} className='close'>
+        <span onClick={close} className='modalClose'>
           <img src={closeIcon} alt='close' />
         </span>
         <h3>{header}</h3>
         <div className='body'>
-          {body}
+          {children||body}
         </div>
       </div>
     </div>

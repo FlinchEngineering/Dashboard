@@ -1,0 +1,23 @@
+.video {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 100px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  word-break: break-all;
+  position: relative;
+}
+.video .close {
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+}
+.video .vidIcon {
+  height: 50px;
+  width: 50px;
+  color: #00A3FF;
+  fill: #00A3FF;
+  stroke: #00A3FF;
+  margin-top: 10px;
+}

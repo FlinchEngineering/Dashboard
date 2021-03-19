@@ -35,25 +35,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 var react_1 = require("react");
 var IconButton_1 = require("../IconButton");
 require("./style.scss");
 var uuid_1 = require("uuid");
+var Link_1 = require("../Link");
+var UploadModal_1 = require("../UploadModal");
 var ListItem = function (_a) {
     var title = _a.title, shouldDelete = _a.shouldDelete, edit = _a.edit, data = _a.data, showData = _a.showData, onDelete = _a.onDelete;
     var _b = react_1.useState(false), deleteLoader = _b[0], setDeleteLoader = _b[1];
     var _c = react_1.useState(false), view = _c[0], setView = _c[1];
     var _d = react_1.useState(false), editting = _d[0], setEditting = _d[1];
+    var _e = react_1.useState(false), showModal = _e[0], setShowModal = _e[1];
+    var _f = react_1.useState(''), info = _f[0], setInfo = _f[1];
+    var _g = react_1.useState(null), files = _g[0], setFiles = _g[1];
+    var uploadFileRef = react_1.useRef(null);
+    var clicked = view ? 'active' : '';
     var samples = (data || {
         samples: null
     }).samples;
     var onView = function () {
-        setView(true);
+        setView(!view);
     };
     var onEditting = function () {
         setView(true);
         setEditting(!editting);
+    };
+    var onAddSample = function () {
+        setShowModal(true);
+    };
+    var onUpload = function () {
+        uploadFileRef.current &&
+            uploadFileRef.current.click();
     };
     var remove = function () { return __awaiter(void 0, void 0, void 0, function () {
         var _a;
@@ -74,6 +95,59 @@ var ListItem = function (_a) {
             }
         });
     }); };
+    var reset = function () {
+        var dt = new DataTransfer();
+        setFiles(null);
+        if (uploadFileRef.current) {
+            uploadFileRef.current.files = dt.files;
+        }
+    };
+    var removeVid = function (name) {
+        console.log(name);
+        setFiles(function (s) {
+            var samps = s === null || s === void 0 ? void 0 : s.filter(function (d) { return d.name !== name; });
+            return samps || [];
+        });
+        if (uploadFileRef.current) {
+            var dt_1 = new DataTransfer();
+            var files_1 = uploadFileRef.current.files;
+            var list = files_1 && Array.from(files_1);
+            list === null || list === void 0 ? void 0 : list.forEach(function (item) {
+                if (item.name !== name)
+                    dt_1.items.add(item);
+            });
+            uploadFileRef.current.files = dt_1.files;
+        }
+    };
+    var closeModal = function () {
+        setShowModal(false);
+        reset();
+    };
+    var validateFiles = function (files) {
+        var list = files && Array.from(files);
+        list = list.filter(function (v) {
+            if (v.type.indexOf('video') > -1) {
+                return true;
+            }
+            setInfo('Only videos are allowed');
+            return false;
+        });
+        return list;
+    };
+    var addSample = function (e) {
+        var files = e.target.files;
+        var list = files && validateFiles(files);
+        console.log(list);
+        if (list && (list === null || list === void 0 ? void 0 : list.length) > 0) {
+            setFiles(function (s) {
+                if (!s) {
+                    return __spreadArrays(list);
+                }
+                else
+                    return (__spreadArrays(s, list));
+            });
+        }
+    };
     var renderData = function () {
         var keys = data && Object
             .keys(data)
@@ -93,8 +167,7 @@ var ListItem = function (_a) {
                 ? "" + v.currency + v.amount
                 : v;
             return react_1["default"].createElement("div", { className: 'dataItem', key: uuid_1.v4() },
-                !isSamples && react_1["default"].createElement("h4", null, k),
-                isSamples && hasSamples && react_1["default"].createElement("h4", null, k),
+                react_1["default"].createElement("h4", null, k),
                 !isImage &&
                     !isSamples &&
                     react_1["default"].createElement("p", null, val),
@@ -102,18 +175,21 @@ var ListItem = function (_a) {
                     !isSamples &&
                     react_1["default"].createElement("img", { className: 'celebDp', src: val, height: 50, width: 50, alt: data === null || data === void 0 ? void 0 : data.alias }),
                 isSamples &&
-                    hasSamples &&
-                    react_1["default"].createElement("div", null, samples === null || samples === void 0 ? void 0 : samples.map(function (sample) { return (react_1["default"].createElement("div", { key: uuid_1.v4() },
-                        react_1["default"].createElement("span", { className: 'vidContainer' },
-                            react_1["default"].createElement("img", { className: 'vidImg', alt: sample.uri, src: sample.thumbnail })))); })));
+                    react_1["default"].createElement("div", { className: 'samplesContainer' }, samples === null || samples === void 0 ? void 0 :
+                        samples.map(function (sample) { return (react_1["default"].createElement("div", { key: uuid_1.v4() },
+                            react_1["default"].createElement("span", { className: 'vidContainer' },
+                                react_1["default"].createElement("img", { className: 'vidImg', alt: sample.uri, src: sample.thumbnail })))); }),
+                        isSamples &&
+                            react_1["default"].createElement(Link_1["default"], { onClick: onAddSample }, "+Add Sample")));
         }));
     };
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement("div", { className: 'listContainer', role: 'button' },
-            react_1["default"].createElement("div", { onClick: onView, className: 'listTitle' }, title),
+        react_1["default"].createElement("div", { className: "listContainer " + clicked, role: 'button', onClick: onView },
+            react_1["default"].createElement("div", { className: 'listTitle' }, title),
             react_1["default"].createElement("div", { className: 'btns' },
                 edit && react_1["default"].createElement(IconButton_1["default"], { onClick: onEditting, className: 'info', icon: react_1["default"].createElement("i", { className: "fas fa-pencil-alt" }) }),
                 shouldDelete && react_1["default"].createElement(IconButton_1["default"], { onClick: remove, loading: deleteLoader, className: 'danger', icon: react_1["default"].createElement("i", { className: "far fa-trash-alt" }) }))),
-        showData && view && react_1["default"].createElement("div", { className: 'dataInfo' }, renderData())));
+        showData && view && react_1["default"].createElement("div", { className: 'dataInfo' }, renderData()),
+        react_1["default"].createElement(UploadModal_1["default"], { celebId: (data === null || data === void 0 ? void 0 : data.id) || '', currentSamps: samples && samples, show: showModal, files: files, addSample: addSample, close: closeModal, onUpload: onUpload, removeVid: removeVid, title: 'Add Sample', uploadFileRef: uploadFileRef })));
 };
 exports["default"] = ListItem;

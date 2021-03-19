@@ -4,7 +4,7 @@
   height: 60px;
   flex-direction: row;
   display: flex;
-  background-color: $dark-blue;
+  background-color: transparent;
   padding: 10px;
   .content {
     flex: 8;
@@ -12,8 +12,15 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    .hamburger {
+      font-size: 35px;
+      background-color: transparent;
+      color: $primary-color;
+    }
     .logo {
-      height: 50px;
+      height: 35px;
       cursor: pointer;
     }
     button {

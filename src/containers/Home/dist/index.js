@@ -56,8 +56,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 var react_1 = require("react");
 require("./style.scss");
-var movie_png_1 = require("../../assets/movie.png");
-var close_png_1 = require("../../assets/close.png");
 var react_redux_1 = require("react-redux");
 var modal_1 = require("../../store/modal");
 var Link_1 = require("../../components/Link");
@@ -68,6 +66,7 @@ var TextArea_1 = require("../../components/TextArea");
 var CelebsService_1 = require("../../services/CelebsService");
 var CraftsService_1 = require("../../services/CraftsService");
 var InputOptions_1 = require("../../components/InputOptions");
+var VideoIcon_1 = require("../../components/VideoIcon");
 var CLEAR_INTERVAL = 25000;
 var INIT_FORM = {
     alias: '',
@@ -196,8 +195,6 @@ function Home() {
     var validateInputs = function () {
         var data = Object.values(form);
         var msgs = data.filter(function (d) { return !!!d; });
-        console.log(msgs.length);
-        console.log(data);
         return msgs.length < 6;
     };
     var getVal = function (key) {
@@ -246,11 +243,9 @@ function Home() {
     var renderSamples = function () {
         return (react_1["default"].createElement(react_1["default"].Fragment, null,
             react_1["default"].createElement("div", { className: 'samples' }, samples && samples.map(function (sample, i) {
-                return react_1["default"].createElement("div", { key: i, className: 'video' },
-                    react_1["default"].createElement("span", { onClick: function () { return removeVideo(sample.name); }, className: 'close', role: 'button' },
-                        react_1["default"].createElement("img", { src: close_png_1["default"], alt: 'close' })),
-                    react_1["default"].createElement("img", { className: 'vidIcon', src: movie_png_1["default"], alt: 'video icon' }),
-                    react_1["default"].createElement("p", null, sample.name));
+                return react_1["default"].createElement(VideoIcon_1["default"], { sample: sample, removeVideo: function () {
+                        return removeVideo(sample.name);
+                    }, key: i });
             })),
             react_1["default"].createElement(Link_1["default"], { className: 'add', onClick: uploadSamples }, "+")));
     };
@@ -269,7 +264,7 @@ function Home() {
                             var target = _a.target;
                             return onChange('email', target.value);
                         } }),
-                    react_1["default"].createElement(InputOptions_1["default"], { options: crafts, value: getVal('craft'), onChange: function (_a) {
+                    react_1["default"].createElement(InputOptions_1["default"], { placeholder: 'Craft', options: crafts, value: getVal('craft'), onChange: function (_a) {
                             var target = _a.target;
                             return onChange('craft', target.value);
                         } }),

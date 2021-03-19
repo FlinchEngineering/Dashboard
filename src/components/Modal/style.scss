@@ -6,26 +6,42 @@
   width: 100%;
   background-color:$light;
   position: fixed;
-  z-index: 10;
+  z-index: 100;
   justify-content: center;
   top: 0;
-  height: 100vw;
   z-index: 10;
   align-self: center;
   display: flex;
   justify-content: center;
   .modal {
     background-color: $white;
-    width: 50%;
-    height: 30%;
+    width: 70%;
+    height: 30vh;
     top: 5%;
     position: relative;
     border-radius: 4px;
     padding: 30px;
-    .close {
+    .modalClose {
       position: absolute;
       right: 30px;
       cursor: pointer;
+    }
+    .body {
+      .uploadSamps {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin-top: 50px;
+      }
+      .uploadFileInput {
+        display: none;
+      }
+      .samples {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
     }
   }
 }

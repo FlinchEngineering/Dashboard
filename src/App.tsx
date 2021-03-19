@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './styles.css'
 import StoreService from './services/StoreService'
 import { useDispatch } from 'react-redux'
@@ -8,9 +8,11 @@ import Modal from './components/Modal'
 import Routes from './components/Routes'
 import { UserAuthInfo } from './types'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Sidebar from './components/Sidebar'
 
 const App = () => {
   const dispatch = useDispatch()
+  const [showSidebar, setShowSidebar] = useState(false)
   useEffect(() => {
     const checkUser = async () => {
       const data: UserAuthInfo = await StoreService.get('user')
@@ -21,16 +23,9 @@ const App = () => {
   }, [dispatch])
   return (
     <div>
-      {/* {showDash&&<Navbar 
-        showDash={setShowDash}
-        showCelebs={setShowCelebs}
-      />}
-      {showDash&&!showCelebs&&<Home/>}
-      {showDash&&showCelebs&&<Celebs/>}
-      {!showDash&&<Login/>} */}
       <Routes>
-        <Navbar
-        />
+        <Sidebar setShow={setShowSidebar} show={showSidebar} />
+        <Navbar showSidebar={showSidebar} setSidebar={setShowSidebar} />
       </Routes>
       <Modal/>
     </div>

@@ -1,0 +1,43 @@
+.container {
+  position: fixed;
+  height: 100vh;
+  background-color: #fff;
+  -webkit-box-shadow: 4px 2px 20px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 4px 2px 20px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 2px 20px 0px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+.container .close {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  background-color: rgba(0, 163, 255, 0.2);
+  color: #00A3FF;
+}
+.container .logoContainer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  cursor: pointer;
+}
+.container .logoContainer .logo {
+  height: 80px;
+  border-radius: 100px;
+}
+.container .menuContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  height: 75%;
+}
+.container .menuContainer .menuItems {
+  display: inline-flex;
+  flex-direction: column;
+}
+.container .menuContainer .menuItems div {
+  margin-bottom: 20px;
+}

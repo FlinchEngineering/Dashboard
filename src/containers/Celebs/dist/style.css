@@ -1,5 +1,11 @@
 .celebsContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding: 20px;
+  background: rgba(225, 225, 240, 0.2);
+}
+.celebsContainer .celebs {
+  display: flex;
+  flex-direction: column;
+  flex: 8;
 }

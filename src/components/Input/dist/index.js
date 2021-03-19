@@ -42,7 +42,7 @@ var Input = function (_a) {
     var showCurrency = mode === 'currency'
         ? renderCurrency()
         : undefined;
-    return (react_1["default"].createElement("div", { className: 'input-main-container' },
+    return (react_1["default"].createElement("div", { className: "input-main-container " + (className || '') },
         showCurrency,
         react_1["default"].createElement("input", __assign({ className: 'input-container', placeholder: placeholder, type: type }, props))));
 };

@@ -1,0 +1,81 @@
+@import '../../variables';
+
+.modal-container {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  background-color:$light;
+  position: fixed;
+  z-index: 100;
+  justify-content: center;
+  top: 0;
+  z-index: 10;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  .modal {
+    background-color: $white;
+    width: 60%;
+    min-height: 50vh;
+    top: 5%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    // padding: 30px;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    .footer {
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      align-items: center;
+    }
+    .modalClose {
+      position: absolute;
+      right: 30px;
+      cursor: pointer;
+    }
+    .body {
+      height: 50vh;
+      padding: 10px;
+      background-color: rgba($color: $grey, $alpha: 0.05);
+      overflow-y: auto;
+      .uploadSamps {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin-top: 50px;
+      }
+      .uploadFileInput {
+        display: none;
+      }
+      .samplesUploadContainer {
+        max-height: 80vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .addSample {
+          font-size: 50px;
+          margin-left: 20px;
+          height: 50px;
+          width: 50px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .samples {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+}

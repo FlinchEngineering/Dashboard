@@ -41,7 +41,6 @@ var react_redux_1 = require("react-redux");
 require("./style.scss");
 var logo_png_1 = require("../../assets/logo.png");
 var user_1 = require("../../store/user");
-var Input_1 = require("../../components/Input");
 var Button_1 = require("../../components/Button");
 var useUser_1 = require("../../hooks/useUser");
 var react_router_dom_1 = require("react-router-dom");
@@ -85,9 +84,11 @@ var Login = function () {
         react_1["default"].createElement("div", { className: 'form' },
             react_1["default"].createElement("div", null,
                 react_1["default"].createElement("img", { className: 'logo', src: logo_png_1["default"], alt: 'logo' })),
-            react_1["default"].createElement(Input_1["default"], { placeholder: 'Email', onChange: onEmailChange, value: email }),
-            react_1["default"].createElement(Input_1["default"], { placeholder: 'Password', type: 'password', onChange: onPassChange, value: pass }),
-            react_1["default"].createElement(Button_1["default"], { title: 'Login', onClick: onLogin }),
+            react_1["default"].createElement("div", null,
+                react_1["default"].createElement("input", { onChange: onEmailChange, placeholder: 'Email' })),
+            react_1["default"].createElement("div", null,
+                react_1["default"].createElement("input", { onChange: onPassChange, placeholder: 'Password', type: 'password' })),
+            react_1["default"].createElement(Button_1["default"], { title: 'Login', className: 'btn', onClick: onLogin }),
             react_1["default"].createElement("br", null),
             !!error &&
                 react_1["default"].createElement("p", { className: 'error' }, error))));

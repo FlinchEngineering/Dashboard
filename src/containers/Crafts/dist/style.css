@@ -1,13 +1,40 @@
-.craftsContainer {
+.rootContainer {
+  display: flex;
+  background: rgba(225, 225, 240, 0.2);
+}
+.rootContainer .craftsContainer {
+  flex: 8;
   padding: 20px;
 }
-.craftsContainer .header {
-  text-align: center;
-}
-.craftsContainer .inputRow {
+.rootContainer .craftsContainer .top {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.craftsContainer .list {
+.rootContainer .craftsContainer .crafts {
   display: flex;
   flex-direction: column;
+}
+.rootContainer .craftsContainer .header {
+  text-align: center;
+}
+.rootContainer .craftsContainer .inputRow {
+  display: flex;
+}
+.rootContainer .craftsContainer .inputRow .addBtn {
+  margin-left: 5px;
+}
+.rootContainer .craftsContainer .inputRow .addInput {
+  margin-bottom: 0;
+  padding: 0;
+}
+.rootContainer .craftsContainer .inputRow .addInput.inputElement input {
+  margin-bottom: 0;
+}
+.rootContainer .craftsContainer .list {
+  display: flex;
+  flex-direction: column;
+}
+.rootContainer .craftsContainer .list h2 {
+  text-align: center;
 }

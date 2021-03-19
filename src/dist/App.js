@@ -45,8 +45,10 @@ var Navbar_1 = require("./components/Navbar");
 var Modal_1 = require("./components/Modal");
 var Routes_1 = require("./components/Routes");
 require("react-loader-spinner/dist/loader/css/react-spinner-loader.css");
+var Sidebar_1 = require("./components/Sidebar");
 var App = function () {
     var dispatch = react_redux_1.useDispatch();
+    var _a = react_1.useState(false), showSidebar = _a[0], setShowSidebar = _a[1];
     react_1.useEffect(function () {
         var checkUser = function () { return __awaiter(void 0, void 0, void 0, function () {
             var data;
@@ -65,7 +67,8 @@ var App = function () {
     }, [dispatch]);
     return (react_1["default"].createElement("div", null,
         react_1["default"].createElement(Routes_1["default"], null,
-            react_1["default"].createElement(Navbar_1["default"], null)),
+            react_1["default"].createElement(Sidebar_1["default"], { setShow: setShowSidebar, show: showSidebar }),
+            react_1["default"].createElement(Navbar_1["default"], { showSidebar: showSidebar, setSidebar: setShowSidebar })),
         react_1["default"].createElement(Modal_1["default"], null)));
 };
 exports["default"] = App;

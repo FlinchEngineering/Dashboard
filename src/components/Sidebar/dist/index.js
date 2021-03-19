@@ -36,55 +36,57 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+var react_router_dom_1 = require("react-router-dom");
+var style_module_scss_1 = require("./style.module.scss");
+var flinchLogo_png_1 = require("../../assets/flinchLogo.png");
+var Link_1 = require("../Link");
+var react_redux_1 = require("react-redux");
+var user_1 = require("../../store/user");
+var Button_1 = require("../Button");
+var IconButton_1 = require("../IconButton");
 var react_1 = require("react");
-var ListItem_1 = require("../../components/ListItem");
-var CelebsService_1 = require("../../services/CelebsService");
-require("./style.scss");
-var Celebs = function () {
-    var _a = react_1.useState([]), celebs = _a[0], setCelebs = _a[1];
-    var _b = react_1.useState(false), loading = _b[0], setLoading = _b[1];
+var Sidebar = function (_a) {
+    var show = _a.show, setShow = _a.setShow;
+    var dispatch = react_redux_1.useDispatch();
+    var push = react_router_dom_1.useHistory().push;
+    var pathname = react_router_dom_1.useLocation().pathname;
     react_1.useEffect(function () {
-        getCelebs();
-    }, []);
-    var getCelebs = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var data;
+        if (pathname.indexOf('login') > -1) {
+            setShow(false);
+        }
+    }, [pathname, setShow]);
+    var add = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    setLoading(true);
-                    return [4 /*yield*/, CelebsService_1["default"].getAllCelebs()];
-                case 1:
-                    data = _a.sent();
-                    data && setCelebs(data);
-                    setLoading(false);
-                    return [2 /*return*/];
-            }
+            push('dash');
+            return [2 /*return*/];
         });
     }); };
-    var onDelete = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-        var res;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    console.log('deleting');
-                    return [4 /*yield*/, CelebsService_1["default"].deleteCelebUser(id)];
-                case 1:
-                    res = _a.sent();
-                    console.log('deleted:: ', res);
-                    res && setCelebs(function (c) {
-                        return c.filter(function (d) { return d.id !== id; });
-                    });
-                    return [2 /*return*/];
-            }
-        });
-    }); };
-    return loading
-        ? (react_1["default"].createElement("div", null, "Loading....."))
-        : react_1["default"].createElement("div", { className: 'celebsContainer' },
-            react_1["default"].createElement("div", { className: 'offset' }),
-            react_1["default"].createElement("div", { className: 'celebs' },
-                react_1["default"].createElement("h1", null, "Celebrities"),
-                celebs.map(function (celeb, i) { return (react_1["default"].createElement(ListItem_1["default"], { key: i, id: celeb.id || '', title: celeb.alias, shouldDelete: true, onDelete: function () { return onDelete(celeb.id || ''); }, data: celeb, showData: true })); })),
-            react_1["default"].createElement("div", { className: 'offset' }));
+    var onLogout = function () {
+        dispatch(user_1.userActions.logout());
+    };
+    var onViewCelebs = function () {
+        push('celebs');
+    };
+    var onLogoClicked = function () {
+        push('/');
+    };
+    var onViewCrafts = function () {
+        push('/crafts');
+    };
+    var onClose = function () {
+        setShow(false);
+    };
+    if (!show)
+        return null;
+    return (React.createElement("div", { className: style_module_scss_1["default"]['container'] },
+        React.createElement(IconButton_1["default"], { onClick: onClose, className: style_module_scss_1["default"].close, icon: React.createElement("i", { className: "fas fa-times" }) }),
+        React.createElement("div", { onClick: onLogoClicked, className: style_module_scss_1["default"]['logoContainer'] },
+            React.createElement("img", { className: style_module_scss_1["default"]['logo'], src: flinchLogo_png_1["default"], alt: 'logo' })),
+        React.createElement("div", { className: style_module_scss_1["default"]['menuContainer'] },
+            React.createElement("div", { className: style_module_scss_1["default"]['menuItems'] },
+                React.createElement(Link_1["default"], { onClick: add }, "Add Celebrity"),
+                React.createElement(Link_1["default"], { onClick: onViewCrafts }, "Crafts"),
+                React.createElement(Link_1["default"], { onClick: onViewCelebs }, "Celebrities")),
+            React.createElement(Button_1["default"], { title: 'Logout', onClick: onLogout }))));
 };
-exports["default"] = Celebs;
+exports["default"] = Sidebar;

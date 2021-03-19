@@ -6,3 +6,6 @@
 .link:active {
   outline: auto;
 }
+.link:hover {
+  opacity: 0.7;
+}

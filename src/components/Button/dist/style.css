@@ -6,10 +6,23 @@
   min-width: 120px;
   color: #fff;
   font-weight: bold;
+  overflow: hidden;
   cursor: pointer;
+}
+.btn-container:hover {
+  opacity: 0.7;
 }
 .btn-container.sm {
   min-width: 60px;
+}
+.btn-container .loader {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-container .loader svg {
+  height: 25px;
 }
 
 .btn-invert {

@@ -13,9 +13,9 @@ export const {actions, ...modalSlice} = createSlice({
   reducers: {
     showModal (
       state,
-      {payload} : PayloadAction<ModalPayload>
+      {payload} : PayloadAction<Partial<ModalPayload>>
     ) : ModalPayload {
-      return {...state, ...payload}
+      return {...state, show:true, ...payload}
     },
     clearModal () {
       return initState

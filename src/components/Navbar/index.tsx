@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss'
 import logo from '../../assets/logo-lg.png'
-import Button from '../Button'
-import { useDispatch } from 'react-redux'
-import { userActions } from '../../store/user'
-import Link from '../Link'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useUser } from '../../hooks/useUser'
+import IconButton from '../IconButton'
 
 interface NavbarProps {
-  showDash?: (val:boolean)=>void;
-  showCelebs?: (val:boolean)=>void
+  showSidebar: boolean;
+  setSidebar: (val:boolean) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = () => {
-  const dispatch = useDispatch()
+const Navbar: React.FC<NavbarProps> = ({
+  showSidebar,
+  setSidebar
+}) => {
   const [show, setShow] = useState(true)
   const { pathname } = useLocation()
   const { push, replace } = useHistory()
@@ -30,25 +29,18 @@ const Navbar: React.FC<NavbarProps> = () => {
     console.log('hasUser',hasUser)
     !hasUser && replace('login')
   }, [hasUser,replace])
-  const add = async () => {
-    push('dash')
-  }
-  const onLogout = () => {
-    dispatch(userActions.logout())
-  }
-  const onViewCelebs = () => {
-    push('celebs')
-  }
   const onLogoClicked = () => {
     push('/')
   }
-  const onViewCrafts = () => {
-    push('/crafts')
+  const openSidebar = () => {
+    setSidebar(true)
+  }
+  const closeSidebar = () => {
+    setSidebar(false)
   }
   if (!show) return null
   return (
     <div className='nav-container'>
-      {/* <div className='offset' /> */}
       <div className='content'>
         <div role='link' onClick={onLogoClicked}>
           <img
@@ -57,24 +49,11 @@ const Navbar: React.FC<NavbarProps> = () => {
             src={logo}
           />
         </div>
-        <div className='right'>
-          <Link white onClick={add}>
-            Add Celebrity
-          </Link>
-          <Link white onClick={onViewCrafts}>
-            Crafts
-          </Link>
-          <Link white onClick={onViewCelebs}>
-            Celebrities
-          </Link>
-          <Button
-            invert
-            title='Logout'
-            onClick={onLogout}
-          />
-        </div>
+        {!showSidebar&&<IconButton 
+          onClick={openSidebar}
+          className='hamburger' 
+          icon={<i className="fas fa-bars" />} />}
       </div>
-      {/* <div className='offset' /> */}
     </div>
   )
 }

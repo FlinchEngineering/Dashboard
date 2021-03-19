@@ -1,15 +1,44 @@
 @import '../../variables';
 
-.craftsContainer {
-  padding: 20px;
-  .header {
-    text-align: center;
-  }
-  .inputRow {
-    display: flex;
-  }
-  .list {
-    display: flex;
-    flex-direction: column;
+.rootContainer {
+  display: flex;
+  background: rgba(225,225,240,0.2);
+  .craftsContainer {
+    flex: 8;
+    padding: 20px;
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .crafts {
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      text-align: center;
+    }
+    .inputRow {
+      display: flex;
+      .addBtn {
+        margin-left: 5px;
+      }
+      .addInput {
+        margin-bottom: 0;
+        padding: 0;
+        &.inputElement {
+          input {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .list {
+      display: flex;
+      flex-direction: column;
+      h2{
+        text-align: center;
+      }
+    }
   }
 }

@@ -6,12 +6,23 @@
   background-color: $white;
   justify-content: space-between;
   cursor: pointer;
+  height: 80px;
   align-items: center;
   border-bottom: 0.5px solid rgba($color: $grey, $alpha: 0.1);
+  .listTitle {
+    display: flex;
+    align-items: center;
+  }
   &:hover {
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
+  }
+  &.active {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    background-color: rgba($color: $grey, $alpha: 0.02);
   }
   .listTitle {
     flex:1;
@@ -32,9 +43,19 @@
   }
   .dataItem {
     margin-right: 30px;
+    .samplesContainer {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      align-items: center;
+      .addSamplePlus {
+        margin: 10px;
+      }
+    }
   }
   .vidContainer {
     cursor: pointer;
+    margin-right: 10px;
     .vidImg {
       height: 50px;
     }

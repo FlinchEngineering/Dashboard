@@ -51,9 +51,10 @@ var CraftsService_1 = require("../../services/CraftsService");
 var ListItem_1 = require("../../components/ListItem");
 var Crafts = function () {
     var _a = react_1.useState(false), loading = _a[0], setLoading = _a[1];
-    var _b = react_1.useState([]), crafts = _b[0], setCrafts = _b[1];
-    var _c = react_1.useState(null), craft = _c[0], setCraft = _c[1];
-    var _d = react_1.useState(''), info = _d[0], setInfo = _d[1];
+    var _b = react_1.useState(false), submitting = _b[0], setSubmitting = _b[1];
+    var _c = react_1.useState([]), crafts = _c[0], setCrafts = _c[1];
+    var _d = react_1.useState(null), craft = _d[0], setCraft = _d[1];
+    var _e = react_1.useState(''), info = _e[0], setInfo = _e[1];
     react_1.useEffect(function () {
         fetchCrafts();
     }, []);
@@ -81,6 +82,7 @@ var Crafts = function () {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    setSubmitting(true);
                     craftExists = craft && crafts
                         .includes(craft);
                     console.log('Craft exists', craftExists);
@@ -104,6 +106,7 @@ var Crafts = function () {
                     added
                         ? setInfo(craft + " added.")
                         : setInfo('Failed to add craft.');
+                    setSubmitting(false);
                     return [2 /*return*/];
             }
         });
@@ -124,17 +127,21 @@ var Crafts = function () {
             }
         });
     }); };
-    return (react_1["default"].createElement("div", null,
+    return (react_1["default"].createElement("div", { className: 'rootContainer' },
+        react_1["default"].createElement("div", { className: 'offset' }),
         react_1["default"].createElement("div", { className: 'craftsContainer' },
-            react_1["default"].createElement("h1", { className: 'header' }, "Crafts"),
-            react_1["default"].createElement("div", { className: 'inputRow' },
-                react_1["default"].createElement(Input_1["default"], { placeholder: 'Add Craft', disabled: loading, onChange: onAddChange }),
-                react_1["default"].createElement(Button_1["default"], { className: 'sm', title: '+ Add', disabled: loading, onClick: onAddCraft })),
+            react_1["default"].createElement("div", { className: 'top' },
+                react_1["default"].createElement("h1", null, "Crafts"),
+                react_1["default"].createElement("div", { className: 'inputRow' },
+                    react_1["default"].createElement(Input_1["default"], { className: 'addInput inputElement', placeholder: 'Add Craft', disabled: loading, onChange: onAddChange }),
+                    react_1["default"].createElement(Button_1["default"], { className: 'sm addBtn', title: '+ Add', disabled: loading || submitting, loading: loading || submitting, onClick: onAddCraft }))),
             react_1["default"].createElement("p", null, info),
             loading && 'Loading...',
             react_1["default"].createElement("div", { className: 'list' }, !loading &&
-                crafts.map(function (craft, i) {
-                    return react_1["default"].createElement(ListItem_1["default"], { key: i, title: craft, id: i.toString(), shouldDelete: true, onDelete: function () { return onDelete(craft); } });
-                })))));
+                react_1["default"].createElement("div", null,
+                    react_1["default"].createElement("div", { className: 'crafts' }, crafts.map(function (craft, i) {
+                        return react_1["default"].createElement(ListItem_1["default"], { key: i, title: craft, id: i.toString(), shouldDelete: true, onDelete: function () { return onDelete(craft); } });
+                    }))))),
+        react_1["default"].createElement("div", { className: 'offset' })));
 };
 exports["default"] = Crafts;

@@ -7,6 +7,7 @@ import ListItem from '../../components/ListItem'
 
 const Crafts = () => {
   const [loading, setLoading] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [crafts, setCrafts] = useState<string[]>([])
   const [craft, setCraft] = useState<string|null>(null)
   const [info, setInfo] = useState('')
@@ -27,6 +28,7 @@ const Crafts = () => {
     setCraft(value)
   }
   const onAddCraft = async () => {
+    setSubmitting(true)
     const craftExists = craft && crafts
       .includes(craft)
     console.log('Craft exists',craftExists)
@@ -45,6 +47,7 @@ const Crafts = () => {
     added
     ? setInfo(`${craft} added.`)
     : setInfo('Failed to add craft.')
+    setSubmitting(false)
   }
   const fetchCrafts = async () => {
     setLoading(true)
@@ -54,42 +57,50 @@ const Crafts = () => {
     setLoading(false)
   }
   return (
-    <div>
+    <div className='rootContainer'>
+      <div className='offset' />
       <div className='craftsContainer'>
-        <h1 className='header'>
-          Crafts
-        </h1>
-        <div className='inputRow'>
-          <Input
-            placeholder='Add Craft'
-            disabled={loading}
-            onChange={onAddChange}
-          />
-          <Button
-            className='sm'
-            title='+ Add'
-            disabled={loading}
-            onClick={onAddCraft}
-          />
-
+        <div className='top'>
+          <h1>Crafts</h1>
+          <div className='inputRow'>
+            <Input
+              className='addInput inputElement'
+              placeholder='Add Craft'
+              disabled={loading}
+              onChange={onAddChange}
+            />
+            <Button
+              className='sm addBtn'
+              title='+ Add'
+              disabled={loading||submitting}
+              loading={loading||submitting}
+              onClick={onAddCraft}
+            />
+          </div>
         </div>
         <p>
           {info}
         </p>
         {loading&&'Loading...'}
+
         <div className='list'>
           {!loading&&
-            crafts.map((craft,i)=>{
-            return <ListItem 
-              key={i}
-              title={craft}
-              id={i.toString()}
-              shouldDelete
-              onDelete={()=>onDelete(craft)}
-            />
-          })}
+          <div>
+            <div className='crafts'>
+              {crafts.map((craft,i)=>{
+                return <ListItem 
+                  key={i}
+                  title={craft}
+                  id={i.toString()}
+                  shouldDelete
+                  onDelete={()=>onDelete(craft)}
+                />
+              })}
+            </div>
+          </div>}
         </div>
       </div>
+      <div className='offset' />
     </div>
   )
 }
