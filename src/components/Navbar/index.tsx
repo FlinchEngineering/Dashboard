@@ -35,9 +35,9 @@ const Navbar: React.FC<NavbarProps> = ({
   const openSidebar = () => {
     setSidebar(true)
   }
-  const closeSidebar = () => {
-    setSidebar(false)
-  }
+  // const closeSidebar = () => {
+  //   setSidebar(false)
+  // }
   if (!show) return null
   return (
     <div className='nav-container'>

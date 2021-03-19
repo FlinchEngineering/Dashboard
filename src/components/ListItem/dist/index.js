@@ -55,8 +55,8 @@ var ListItem = function (_a) {
     var _c = react_1.useState(false), view = _c[0], setView = _c[1];
     var _d = react_1.useState(false), editting = _d[0], setEditting = _d[1];
     var _e = react_1.useState(false), showModal = _e[0], setShowModal = _e[1];
-    var _f = react_1.useState(''), info = _f[0], setInfo = _f[1];
-    var _g = react_1.useState(null), files = _g[0], setFiles = _g[1];
+    // const [info, setInfo] = useState('')
+    var _f = react_1.useState(null), files = _f[0], setFiles = _f[1];
     var uploadFileRef = react_1.useRef(null);
     var clicked = view ? 'active' : '';
     var samples = (data || {
@@ -129,7 +129,7 @@ var ListItem = function (_a) {
             if (v.type.indexOf('video') > -1) {
                 return true;
             }
-            setInfo('Only videos are allowed');
+            // setInfo('Only videos are allowed')
             return false;
         });
         return list;
@@ -162,7 +162,6 @@ var ListItem = function (_a) {
                 return null;
             var isImage = k === 'imageUrl';
             var isSamples = k === 'samples';
-            var hasSamples = samples && (samples === null || samples === void 0 ? void 0 : samples.length) > 0;
             var val = k === 'price'
                 ? "" + v.currency + v.amount
                 : v;

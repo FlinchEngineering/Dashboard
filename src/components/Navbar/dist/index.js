@@ -29,9 +29,9 @@ var Navbar = function (_a) {
     var openSidebar = function () {
         setSidebar(true);
     };
-    var closeSidebar = function () {
-        setSidebar(false);
-    };
+    // const closeSidebar = () => {
+    //   setSidebar(false)
+    // }
     if (!show)
         return null;
     return (react_1["default"].createElement("div", { className: 'nav-container' },

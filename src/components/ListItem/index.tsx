@@ -31,7 +31,7 @@ const ListItem: React.FC<
   const [view, setView] = useState(false)
   const [editting, setEditting] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [info, setInfo] = useState('')
+  // const [info, setInfo] = useState('')
   const [files, setFiles] = useState<File[]|null>(null)
   let uploadFileRef = useRef<HTMLInputElement|null>(null)
   const clicked = view ? 'active' : ''
@@ -92,7 +92,7 @@ const ListItem: React.FC<
       if (v.type.indexOf('video') > -1){
         return true
       }
-      setInfo('Only videos are allowed')
+      // setInfo('Only videos are allowed')
       return false
     })
     return list
@@ -125,7 +125,6 @@ const ListItem: React.FC<
         ) return null
         const isImage = k==='imageUrl'
         const isSamples = k === 'samples'
-        const hasSamples = samples && samples?.length>0
         const val = k==='price'
           ? `${(v as any).currency}${(v as any).amount}`
           : v
